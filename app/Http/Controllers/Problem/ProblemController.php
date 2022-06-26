@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Problem;
 use App\Models\Solution;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProblemController extends Controller
 {
@@ -76,4 +78,81 @@ class ProblemController extends Controller
         }
 
     }
+
+    public function saveProblem(Request $request)
+    {
+        $validate = $this->validate($request,[
+            'category_id' => 'required',
+            'problem_description' => 'required',
+            'problem_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:4048'
+        ],
+        [
+            'category_id.required' => 'Category Must Be Selected',
+            'problem_description.required' => 'Problem Descritpion is Required',
+            'problem_image.mimes' => "Format Must be: jpg,jpeg,png,gif",
+            'problem_image.max' => 'Image has Higher Size',
+        ]);
+
+
+        if($validate)
+        {
+            $data = [
+                'problem_description' => htmlspecialchars(trim(ucwords((string)$request->problem_description))),
+                'category_id' => htmlspecialchars(trim($request->category_id)),
+                'booker_id' => Auth::user()->id,
+            ];
+
+            if($request->problem_image != null){
+
+                $fileName = time().'_'.random_int(100000000,9900000000).'.'.$request->problem_image->getClientOriginalExtension();
+
+                $file_path = $request->problem_image->storeAs('problems', $fileName, 'public');
+
+
+                $mergedInputFields = array_merge([
+                    'problem_image' => htmlspecialchars(trim($fileName))
+                ], $data);
+
+                if($file_path)
+                {
+                    // if Image selected
+                    DB::beginTransaction();
+
+                    $store_problem = $this->problem_model->createProblem($mergedInputFields);
+
+                    if($store_problem)
+                    {
+                        DB::commit();
+
+                        sleep(2);
+
+                        session()->flash('message', 'Successfully Problem Information Sent!');
+
+                        return redirect()->route('user.problem.index');
+                    }
+                }
+
+            }else{
+
+                // if Post has No Image Uploaded
+                $store_problem = $this->problem_model->createProblem($data);
+
+                if($store_problem)
+                {
+                    DB::commit();
+
+                    sleep(2);
+
+                    session()->flash('message', 'Successfully Problem Information Sent!');
+
+                    return redirect()->route('user.problem.index');
+                }
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
 }

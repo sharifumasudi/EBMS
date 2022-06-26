@@ -10,7 +10,7 @@
         <!-- Start Sales Charts Section -->
         <!-- *************************************************************** -->
         <div class="row">
-            @livewire('problem.create')
+            @livewire('problem.problem-create')
         </div>
         <!-- *************************************************************** -->
         <!-- End Sales Charts Section -->

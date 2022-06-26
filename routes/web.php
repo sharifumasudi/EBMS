@@ -6,6 +6,7 @@ use App\Http\Controllers\Expert\ExpertController;
 use App\Http\Controllers\Problem\ProblemController;
 use App\Http\Controllers\Solution\SolutionController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => true]);
 
 Route::prefix('admin')->middleware(['auth', 'role:administrator'])->group(function(){
 
@@ -57,4 +58,8 @@ Route::prefix('expert')->middleware(['auth', 'role:expert'])->group(function(){
 Route::get('/respond/{id}', [ProblemController::class, 'respond'])->middleware(['auth', 'role:expert']);
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'role:user']);
+Route::get('/home/my_asked_problem', [ProblemController::class, 'index'])->name('user.problem.index')->middleware(['auth', 'role:user']);
+Route::get('/home/new/problem', [ProblemController::class, 'create'])->name('user.problem.create');
+Route::post('saveProblem', [ProblemController::class, 'saveProblem'])->name('saveProblem')->middleware(['auth', 'role:user']);
+Route::get('mysoln', [SolutionController::class, 'index'])->name('users.index')->middleware(['auth','role:user']);
