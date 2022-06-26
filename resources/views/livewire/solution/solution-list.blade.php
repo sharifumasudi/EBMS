@@ -37,6 +37,10 @@
                                         <a href="{{ url('/approve/'.$items['s_id']) }}" class="btn btn-success btn-sm">Approve</a>
                                         @endif
                                         @endrole
+                                        @role('expert')
+                                        <a href="{{ url('/edit/'.$items['s_id']) }}" class="btn btn-success btn-sm">Edit</a>
+                                        <a href="{{ url('/delete/'.$items['s_id']) }}" class="btn btn-danger btn-sm">Delete</a>
+                                        @endrole
                                     </td>
                                 </tr>
                                 @endforeach

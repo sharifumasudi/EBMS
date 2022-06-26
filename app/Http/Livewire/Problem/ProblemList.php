@@ -94,7 +94,15 @@ class ProblemList extends Component
 
     public function trash($id)
     {
-        dd($id);
+        $delete = $this->problem_model->where(['p_id' => $id])->delete();
+
+        if($delete)
+        {
+            session()->flash('message', 'Post Deleted');
+
+            return redirect()->route('expert.problem.index');
+
+        }
     }
 
     public function render()

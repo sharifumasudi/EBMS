@@ -32,7 +32,7 @@
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td class=" text-wrap">{{ $items['problem_description'] }}</td>
-                                    <td>{{ __('') }}</td>
+                                    <td><img width="200px" src="{{ asset('/storage/problems/'.$items['problem_image']) }}" alt=""></td>
                                     <td>{{ $items['category_name'] }}</td>
                                     <td>{{ $items['name'] }}</td>
                                     @if($items['phone'])
@@ -100,7 +100,7 @@
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td class=" text-wrap text-justify">{{ $items['problem_description'] }}</td>
-                                    <td><img width="300px" src="{{ asset('/storage/problems/'.$items['problem_image']) }}" alt=""></td>
+                                    <td><img width="200px" src="{{ asset('/storage/problems/'.$items['problem_image']) }}" alt=""></td>
                                     <td>{{ $items['category_name'] }}</td>
                                     <td class=" text-wrap">{{ \Carbon\Carbon::parse($items['created_at'])->diffForHumans() }}</td>
                                     <td>

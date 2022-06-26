@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes(['register' => true]);
@@ -57,6 +57,11 @@ Route::prefix('expert')->middleware(['auth', 'role:expert'])->group(function(){
 
 Route::get('/respond/{id}', [ProblemController::class, 'respond'])->middleware(['auth', 'role:expert']);
 
+Route::get('/edit/{id}', [SolutionController::class, 'editSoln'])->middleware(['auth', 'role:expert']);
+
+Route::get('/delete/{id}', [SolutionController::class, 'delete'])->middleware(['auth', 'role:expert']);
+
+Route::post('editSolution', [SolutionController::class, 'editSolution'])->middleware(['auth', 'role:expert']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'role:user']);
 Route::get('/home/my_asked_problem', [ProblemController::class, 'index'])->name('user.problem.index')->middleware(['auth', 'role:user']);
