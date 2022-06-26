@@ -74,6 +74,18 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
+                                        <input name="phone" class="form-control @error('phone') is-invalid
+
+                                        @enderror" type="number" placeholder="Phone Number">
+                                        @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
                                         <input name="password" class="form-control @error('password') is-invalid
 
                                         @enderror" type="password" placeholder="password">

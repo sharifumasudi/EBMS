@@ -87,7 +87,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ((array)json_decode($soln, true) as $key => $items)
+                                @foreach ($soln as $key => $items)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td class=" text-wrap">{{ $items['problem_description'] }}</td>
