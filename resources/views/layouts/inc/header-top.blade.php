@@ -13,7 +13,7 @@
                     <!-- Logo text -->
                     <span class="logo-text">
                         <!-- dark Logo text -->
-                        <h3>{{ __("EBMS - SUA") }}</h3>
+                        <h3>{{ __("IBMS") }}</h3>
                     </span>
                 </a>
             </div>

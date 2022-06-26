@@ -46,6 +46,22 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                    aria-expanded="false"><i data-feather="bar-chart" class="feather-icon"></i><span
+                        class="hide-menu">Expert </span></a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                        <li class="sidebar-item"><a href="{{ route('expert_list.index') }}" class="sidebar-link"><span
+                                    class="hide-menu"> View
+                                </span></a>
+                        </li>
+
+                        <li class="sidebar-item"><a href="{{ route('admin.soln.index') }}" class="sidebar-link"><span
+                            class="hide-menu"> Add New
+                                </span></a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();"

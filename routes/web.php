@@ -37,6 +37,11 @@ Route::prefix('admin')->middleware(['auth', 'role:administrator'])->group(functi
 
     Route::get('/soln', [SolutionController::class, 'index'])->name('admin.soln.index');
 
+    Route::get('/store_expert', [AdminController::class, 'expertForm'])->name('expert_list.create');
+
+    Route::get('/expert', [AdminController::class, 'expertList'])->name('expert_list.index');
+
+    Route::post('/registerExpert', [AdminController::class, 'registerExpert'])->name('registerExpert');
 });
 
 Route::get('/approve/{id}', [SolutionController::class, 'approve'])->middleware(['auth', 'role:administrator']);
@@ -52,7 +57,6 @@ Route::prefix('expert')->middleware(['auth', 'role:expert'])->group(function(){
     Route::post('/post_soln', [ProblemController::class, 'store_soln'])->name('soln.expert');
 
     Route::get('/soln', [SolutionController::class, 'index'])->name('expert.soln.index');
-
 });
 
 Route::get('/respond/{id}', [ProblemController::class, 'respond'])->middleware(['auth', 'role:expert']);
